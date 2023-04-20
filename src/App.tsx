@@ -81,7 +81,7 @@ export default function App() {
                 {error ?<>
                 <h2 style={{color: "red"}}
 >Proof Failed!!</h2>
-                    {/* <Alert severity="error" sx={{ textAlign: "left" , width:"50rem"}}>{errorMsg}</Alert> */}
+                    <Alert severity="error" sx={{ textAlign: "left" , width:"50rem"}}>{errorMsg}</Alert>
                 </>  : <div />}
                 {verified ? <Alert severity="success" sx={{ textAlign: "left" }}>Verified!</Alert> : <div />}
             </Box>
