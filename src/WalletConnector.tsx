@@ -47,9 +47,9 @@ export default function WalletConnector() {
 
   const checkChainId = async () => {
     let chainId = await ethereum.request({ method: 'eth_chainId' });
-    console.log("Chain ID:", chainId, parseInt(chainId));
-
-    setCorrectChain(chainId === testnetChainId);
+    console.log("Chain ID:", chainId, parseInt(chainId) , parseInt(testnetChainId));
+    
+    setCorrectChain(parseInt(chainId) === parseInt(testnetChainId));
   }
 
   const changeChainId = async () => {
@@ -108,7 +108,7 @@ export default function WalletConnector() {
 
   useEffect(() => {
     checkWalletIsConnected();
-    // checkChainId();
+    checkChainId();
   })
 
 
@@ -127,16 +127,17 @@ export default function WalletConnector() {
     )
   }
 
-  const WrongNetworkFab = () => {
+  const WrongNetworkFab = () => {    
     return (
       <div>
         <Backdrop open={true} />
-        <Fab variant="extended" color="secondary" onClick={changeChainId} sx={{
+        <Fab variant="extended" color="secondary" sx={{
           position: "fixed",
           bottom: (theme) => theme.spacing(2),
           right: (theme) => theme.spacing(2)
-        }}>
-          Wrong Network
+        }}
+        >
+          Change to Shardeum Liberty 2.X
         </Fab>
       </div>
     )
@@ -157,7 +158,7 @@ export default function WalletConnector() {
 
   return (
     <div>
-      {(currentAccount) ? <AccountFab /> : (currentAccount ? <WrongNetworkFab /> : <ConnectWalletFab />)}
+      {(currentAccount && correctChain) ? <AccountFab /> : (currentAccount ? <WrongNetworkFab /> : <ConnectWalletFab />)}
     </div>
   )
 }
